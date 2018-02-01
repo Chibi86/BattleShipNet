@@ -1,0 +1,30 @@
+﻿@using BattleShipNet.Helpers
+
+@{
+    ViewBag.Title = "Waiting on opponent";
+}
+
+@section Scripts{ 
+    <script type="text/javascript" src="~/Scripts/canvas.js"></script>
+    <script type="text/javascript" src="~/Scripts/battleship.js"></script>
+}
+
+@MessageHandler.Alerts((Dictionary<string, List<string>>)ViewBag.Messages)
+
+<div class="game-bg waiting-bg" data-lastupdate="@DateTime.Now">
+    <div class="alert alert-success">
+        <h3>Waiting on opponent</h3>
+        <div id="loaderImage"></div>
+        Game url to join:<br />
+        <strong><u>@Url.Action("JoinGame", "Home", new { gamekey = Session["gamekey"] }, Request.Url.Scheme)</u></strong>
+    </div>
+</div>
+
+@*<form action="@Url.Action("EmailFriend", "Home")" method="post" class="waiting-form">
+    <h4>Send a email with game url to friend</h4>
+    <label>
+        Email: <input type="text" name="email" />
+    </label>
+
+    <input type="submit" value="Send" />
+</form>*@

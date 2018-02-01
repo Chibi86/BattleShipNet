@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BattleShip in .Net</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", false)
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <nav id="header" class="navbar navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("BattleShip in .Net", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logotype" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>
+                &copy; 2018
+                @if (DateTime.Now.Year > 2018)
+                { <span>- @DateTime.Now.Year.ToString()</span> }
+                - Board game team ARH | Graphic credit to <a target="_blank" href="https://www.vecteezy.com/">Vecteezy.com</a> and Milton Bradley
+            </p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

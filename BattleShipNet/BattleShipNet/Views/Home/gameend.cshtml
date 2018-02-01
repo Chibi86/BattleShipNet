@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Game End!";
+}
+
+@{
+    string bgClass;
+    string alertClass;
+    string header;
+    string message;
+
+    if (ViewBag.Winner == ViewBag.Player)
+    {
+        bgClass = "gamewon";
+        alertClass = "success";
+        header = "Congratulations!";
+        message = "You win this round, you sink every of your enemy's ships!";
+    }
+    else
+    {
+        bgClass = "gameover";
+        alertClass = "warning";
+        header = "Game Over!";
+        message = "You lost this round, your enemy sink every ship of yours!";
+    }
+}
+
+<div class="game-bg @(bgClass)-bg">
+    <div class="alert alert-@(alertClass)"><h3>@header</h3> @message</div>
+    <form action="/Home/NewGame">
+        <input type="submit" value="New game" />
+    </form>
+    <form action="/Home/JoinGame">
+        <input type="submit" name="toDo" value="Join open game" />
+        <input type="submit" name="toDo" value="Join specific game">
+    </form>
+</div>

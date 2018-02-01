@@ -1,0 +1,30 @@
+﻿@using BattleShipNet.Helpers;
+
+@{
+    ViewBag.Title = "Join Game";
+}
+
+<h2>Join Game</h2>
+
+@MessageHandler.Alerts((Dictionary<string, List<string>>)ViewBag.Messages)
+
+<form action="@Url.Action("StartJoinGame", "Home")" method="post">
+    Name:<br>
+    <input type="text" name="name" value="@ViewBag.name" /><br />
+    @if (ViewBag.ToDo == "Join open game")
+    {
+        <label>
+            Select game to join:<br />
+            @Html.DropDownList("GameKey", new SelectList(Model.OpenGames, "GameKey", "Players[0].Name", ViewBag.GameKey))<br />
+        </label>
+    }
+    else
+    {
+        <label>
+            Gamekey:<br />
+            <input type="text" name ="gameKey" value="@ViewBag.GameKey" />
+        </label >
+    }
+    <br /><br />
+    <input type="submit" value="Join game" />
+</form>

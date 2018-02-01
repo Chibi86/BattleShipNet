@@ -1,0 +1,23 @@
+﻿@using BattleShipNet.Helpers;
+
+@{
+    ViewBag.Title = "New Game";
+
+    string privateChecked = ((bool)ViewBag.Private) ? "checked=\"checked\"" : null;
+}
+
+<h2>Start new game</h2>
+
+@MessageHandler.Alerts((Dictionary<string, List<string>>)ViewBag.Messages)
+
+<form action="@Url.Action("StartNewGame", "Home")" method="post">
+    <label>
+        Name:<br>
+        <input type="text" name="name" value="@ViewBag.Name" />
+    </label><br />
+    <label>
+        <input type="checkbox" name="privateGame" value="true" @privateChecked /> Private game
+    </label>
+    <br /><br />
+    <input type="submit" value="Start new game" />
+</form>

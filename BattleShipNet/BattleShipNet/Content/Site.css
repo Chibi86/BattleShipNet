@@ -1,0 +1,101 @@
+﻿body {
+    padding-bottom: 20px;
+    margin: 10px auto;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+}
+
+.alert ul {
+    margin: 0.5rem auto;
+}
+
+a.logotype {
+    background: url(Images/battleship.png) no-repeat top left;
+    display: block;
+    width: 178px;
+    height: 34px;
+    text-indent: -9999px; /* hides the link text */
+}
+
+.game-bg {
+    width: 714px;
+    height: 500px;
+    padding-top: 30px;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.game-bg input[type=submit] {
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    background: rgba(229, 229, 229, 0.9);
+    color: #00C2F3;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    margin: 5px auto;
+}
+
+.game-bg input[type=text] {
+    width: 670px;
+    border-radius: 5px;
+    font-weight: 600;
+    display: block;
+    margin: 0;
+}
+
+.game-bg input[type=text][readonly] {
+    background: #dddddd;
+}
+
+.index-bg {
+    padding-top: 150px;
+    background: url(Images/index-bg.png) no-repeat;
+}
+
+.waiting-bg {
+    background: url(Images/waiting-bg.png) no-repeat;
+}
+
+.gameover-bg {
+    background: url(Images/gameover-bg.png) no-repeat;
+}
+
+.gamewon-bg {
+    background: url(Images/gamewon-bg.png) no-repeat;
+}
+
+.game-bg .alert {
+    border-radius: unset;
+}
+
+.waiting-bg .alert {
+    opacity: 0.95;
+}
+
+.game-bg .alert {
+    opacity: 0.85;
+}
+
+.waiting-form {
+    width: 714px;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.waiting-form input[type="text"] {
+    width: 300px;
+}

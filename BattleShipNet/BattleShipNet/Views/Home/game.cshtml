@@ -1,0 +1,75 @@
+@model BattleShipNet.Models.GameModel
+@using GameEngine
+@using BattleShipNet.Helpers
+
+@helper makeBoard(int playerId)
+{
+    bool yours = (playerId == Model.YourPlayerId);
+    string id = (yours) ? "your" : "enemy";
+    string turn = (playerId == Model.Game.Turn) ? "true" : "false";
+    Player player = Model.Game.Players[playerId];
+
+    <div id="@(id)board" class="playerboard" data-turn="@turn" data-playerid="@playerId">
+        <h2 class="playerName">@player.Name</h2>
+
+        <div class="topHeader">
+            @for (var i = 1; i <= 10; i++)
+            {
+                <div class="square">@i</div>
+            }
+        </div>
+        <div class="leftHeader">
+            @for (var i = 0; i < Model.Letters.Count; i++)
+            {
+                <div class="square">@Model.Letters.ElementAt(i)</div>
+            }
+        </div>
+        <div class="squares">
+            @for (var x = 1; x <= 10; x++)
+            {
+                for (var y = 1; y <= 10; y++)
+                {
+                    string classes = Model.PositionsClasses(player, new Position(x, y), yours);
+
+                    if (!yours)
+                    {
+                        <a href="/Home/Shoot?x=@(x)&amp;y=@(y)">
+                            <div data-x="@x" data-y="@y" class="square @classes"></div>
+                        </a>
+                    }
+                    else
+                    {
+                        <div data-x="@x" data-y="@y" class="square @classes"></div>
+                    }
+                }
+            }
+        </div>
+    </div>
+}
+
+@{
+    ViewBag.Title = "Game";
+}
+@section Styles {
+    <link href="~/Content/battleship.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/battleship.js"></script>
+}
+
+@MessageHandler.Alerts((Dictionary<string, List<string>>)ViewBag.Messages)
+
+<div id="playerboards" data-lastupdate="@DateTime.Now">
+    @makeBoard(Model.YourPlayerId)
+    @makeBoard(Model.EnemyPlayerId)
+</div>
+
+<div id="instructionsArea">
+    <p id="instructions">
+        Introduction: one play needs to shoot another player’s ship before his/her own ship sinks.
+        One play starts to shoot where the other player places his/her ship, if he/she shoots the right position,
+        he/she can continue to shoot, the right position will be marked as <b>red</b>;
+        if he/she shoots the wrong position, the wrong position will be marked as <b>black</b>,
+        and the other player starts to shoot. The winner is the one who can firstly sink all 7 ships of the other player.
+    </p>
+</div>

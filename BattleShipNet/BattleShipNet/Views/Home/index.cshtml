@@ -1,0 +1,17 @@
+﻿@using BattleShipNet.Helpers
+
+@{
+    ViewBag.Title = "index";
+}
+
+@MessageHandler.Alerts((Dictionary<string, List<string>>)ViewBag.Messages)
+
+<div class="game-bg index-bg">
+    <form action="/Home/NewGame">
+        <input type="submit" value="New game" />
+    </form>
+    <form action="/Home/JoinGame">
+        <input type="submit" name="toDo" value="Join open game" />
+        <input type="submit" name="toDo" value="Join specific game">
+    </form>
+</div>

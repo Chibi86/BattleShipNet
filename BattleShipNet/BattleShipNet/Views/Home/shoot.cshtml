@@ -1,0 +1,28 @@
+﻿@model BattleShipNet.Models.GameModel
+@using System.Web.Script.Serialization;
+@using GameEngine;
+
+@{
+    Layout = null;
+
+    Player winner;
+    Dictionary<string, object> toJson = new Dictionary<string, object>();
+
+    if (ViewBag.Result != null)
+    {
+        toJson.Add("result", ViewBag.Result);
+    }
+
+    toJson.Add("gameend", Model.Game.IsGameEnd(out winner));
+
+    toJson.Add("turn", Model.Game.Turn);
+
+    if ((ViewBag.Messages != null) && ViewBag.Messages.Count > 0)
+    {
+        toJson.Add("Messages", ViewBag.Messages);
+    }
+
+    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+}
+
+@Html.Raw(jsonSerializer.Serialize(toJson))

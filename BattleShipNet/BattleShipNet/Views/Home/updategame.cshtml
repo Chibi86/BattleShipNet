@@ -1,0 +1,75 @@
+﻿@model BattleShipNet.Models.GameModel
+@using GameEngine
+@using System.Web.Script.Serialization;
+
+@functions {
+    public List<object> makeBoard(int playerId)
+    {
+        Player player = Model.Game.Players[playerId];
+        List<object> board = new List<object>();
+        Dictionary<string, object> squarePosition;
+
+        for (var x = 1; x <= 10; x++)
+        {
+            for (var y = 1; y <= 10; y++)
+            {
+                Square square = player.CheckPosition(new Position(x, y));
+
+                squarePosition = new Dictionary<string, object>();
+
+                squarePosition.Add("x", x);
+                squarePosition.Add("y", y);
+
+                if (square.HaveBeenHit && square.HaveBoat)
+                {
+                    squarePosition.Add("boathit", square.HaveBeenHit);
+                }
+                else
+                {
+                    squarePosition.Add("hit", square.HaveBeenHit);
+                }
+
+                board.Add(squarePosition);
+            }
+        }
+
+        return board;
+    }
+}
+
+@{
+    Layout = null;
+
+    Dictionary<string, object> toJson = new Dictionary<string, object>();
+
+    toJson.Add("lastupdate", Model.Game.LastUpdate.ToString());
+
+    if (!Model.Game.Active)
+    {
+        toJson.Add("gamestart", false);
+    }
+    else {
+        Player winner;
+        bool gameEnd = Model.Game.IsGameEnd(out winner);
+
+        toJson.Add("gamestart", true);
+
+        toJson.Add("gameend", gameEnd);
+
+        if (!gameEnd)
+        {
+            List<object> playerboards = new List<object>();
+
+            toJson.Add("turn", Model.Game.Turn);
+
+            playerboards.Add(makeBoard(0));
+            playerboards.Add(makeBoard(1));
+
+            toJson.Add("boards", playerboards);
+        }
+    }
+
+    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+}
+
+@Html.Raw(jsonSerializer.Serialize(toJson))

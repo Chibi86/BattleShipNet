@@ -1,0 +1,51 @@
+﻿@model BattleShipNet.Models.GameModel
+@using GameEngine
+
+@{
+    ViewBag.Title = "gamestat";
+}
+
+@helper BoatsHits(List<Position> hits)
+{ 
+    foreach (Position hit in hits)
+    {
+        <span>(x: @hit.X y: @hit.Y)</span>
+    }
+}
+
+@helper BoatsPositions(Position[] positions)
+{
+    if (positions[0].X < positions[1].X)
+    {
+        for (int x = positions[0].X; x <= positions[1].X; x++)
+        {
+            <span>(x: @x y: @positions[0].Y)</span>
+        }
+    }
+    else
+    {
+        for (int y = positions[0].Y; y <= positions[1].Y; y++)
+        {
+            <span>(x: @positions[0].X y: @y)</span>
+        }
+    }
+
+}
+
+@helper PlayersBoats(Boat[] boats)
+{
+    foreach (Boat boat in boats)
+    {
+        <span>@boat.Type.ToString() (@boat.Size.ToString()) - Positions: {@BoatsPositions(boat.Positions)} - Sink: @boat.Sink.ToString() - Hits: @boat.Hits.Count {@BoatsHits(boat.Hits)}</span><br />
+    }
+}
+
+<h2>Game stat:</h2>
+
+@foreach (Player player in Model.Game.Players)
+{
+    <p>
+        <h3>Player @player.Name:</h3>
+        @PlayersBoats(player.Boats)
+    </p>
+}
