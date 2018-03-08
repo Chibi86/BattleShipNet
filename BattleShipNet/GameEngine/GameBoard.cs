@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace GameEngine
 {
@@ -77,6 +78,10 @@ namespace GameEngine
         /// <returns>Het result (bool)</returns>
         public bool Shoot(int playerId, Position position)
         {
+            int shooter = (playerId == 0) ? 1 : 0;
+
+            Log.Information("Shoot on player " + playerId + " at position x " + position.X + " y " + position.Y + " in game " + GameKey);
+
             // Check so there really are our turn
             if (playerId != Turn)
             {
@@ -90,19 +95,24 @@ namespace GameEngine
                     // Check if a Boat was hit, if not change turn to enemy
                     if (!player.IsABoatHit(position))
                     {
+                        Log.Information("Miss on player " + playerId + " at position x " + position.X + " y " + position.Y + " in game " + GameKey);
                         Turn = playerId;
                         return false;
                     }
+
+                    Log.Information("Boat hit on player " + playerId + " at position x " + position.X + " y " + position.Y + " in game " + GameKey);
 
                     return true;
                 }
                 else
                 {
+                    Log.Warning("Position was already hit on player " + playerId + " at position x " + position.X + " y " + position.Y + " in game " + GameKey);
                     throw new Exception("Position is already hit!");
                 }
             }
             else
             {
+                Log.Warning("Player " + shooter + " try to shoot not their turn in game " + GameKey);
                 throw new Exception("Not your turn!");
             }
         }

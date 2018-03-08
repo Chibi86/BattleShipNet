@@ -175,7 +175,7 @@ namespace BattleShipNet.Controllers
         //    // Get GameModel for session GameBoard
         //    GameModel gameModel = GetSessionGame();
 
-        //    if(gameModel != null)
+        //    if (gameModel != null)
         //    {
         //        if (gameModel.Game.Active)
         //        {
@@ -345,8 +345,7 @@ namespace BattleShipNet.Controllers
                 Player winner = new Player();
                 if (gameModel.Game.IsGameEnd(out winner))
                 {
-                    ViewBag.Winner = winner;
-                    ViewBag.Player = gameModel.YourPlayer;
+                    ViewBag.Winner = (winner == gameModel.YourPlayer);
                     gameModel.YourPlayer.HaveSeenEndScreen = true;
 
                     RemoveSessionGame();

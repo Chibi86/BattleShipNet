@@ -110,15 +110,20 @@ namespace BattleShipNet.Models
 
             if (int.TryParse(x, out positionX) && int.TryParse(y, out positionY))
             {
+                Position position;
+
                 // Check so position is correct, then shoot. Catch trow error otherwish
                 try
                 {
-                    Position position = new Position(positionX, positionY);
-
-                    bool result = Game.Shoot(EnemyPlayerId, position);
-                    return result;
+                    position = new Position(positionX, positionY);
                 }
-                catch {}
+                catch
+                {
+                    throw new Exception("You need to hit one existing position");
+                }
+
+                bool result = Game.Shoot(EnemyPlayerId, position);
+                return result;
             }
 
             throw new Exception("You need to hit one existing position");

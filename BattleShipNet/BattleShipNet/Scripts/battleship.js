@@ -173,7 +173,7 @@
         // Check if got any #alert-<messageType> element since before, otherwish make one 
         if ($("#alert-" + messageType).length == 0) {
             alertDiv = $("<div>").addClass("alert alert-" + messageType).attr("id", "alert-" + messageType).attr("role", "alert");
-            $(alertDiv).insertAfter("#instructionsArea");
+            $(alertDiv).insertBefore("#playerboards");
         }
         else {
             alertDiv = $("#alert-" + messageType);
