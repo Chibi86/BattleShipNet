@@ -28,7 +28,7 @@ namespace BattleShipNet.Models
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.High;
                     SmtpClient client = new SmtpClient();
-                    client.Credentials = new NetworkCredential("info@battleship.chibidesign.se", "****");
+                    client.Credentials = new NetworkCredential("info@battleship.chibidesign.se", "oDt5$l5a77*Qx4pNc21p");
                     client.Port = 587;
                     client.Host = "smtp01.binero.se";
                     client.EnableSsl = true;
